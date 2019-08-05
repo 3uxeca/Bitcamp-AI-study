@@ -28,7 +28,7 @@ model.fit(x_data, y_data, epochs=100, batch_size=1, verbose=1)
 
 # 4. 평가 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=1)
-y_predict = model.predict(x_test)
+y_predict = model.predict_classes(x_test) # model.predict_classes() 예측결과값을 분류값중에 뽑아서 보여줌 근사값(0.10, 0.98이 아닌 0과 1로 나옴!)
 
 print('loss : ', loss)
 print('acc : ', acc)

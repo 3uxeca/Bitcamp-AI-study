@@ -22,7 +22,7 @@ x_val, x_test, y_val, y_test = train_test_split( # train 60 val 20 test 20 으�
 print(x_test)
 print(y_test)
 
-'''
+
 #2. 모델구성
 from keras.models import Sequential
 from keras.layers import Dense 
@@ -67,4 +67,3 @@ print("RMSE : ", RMSE(y_test, y_predict))
 from sklearn.metrics import r2_score
 r2_y_predict = r2_score(y_test, y_predict)
 print("R2 : ", r2_y_predict)
-'''

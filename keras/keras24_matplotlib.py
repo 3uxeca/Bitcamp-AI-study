@@ -87,3 +87,4 @@ plt.ylabel('loss, acc')
 plt.xlabel('epoch')
 plt.legend(['train loss', 'test loss', 'train acc', 'test acc'], loc='lower left') #위 history순서와 대응
 plt.show()
+'''

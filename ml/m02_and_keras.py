@@ -27,7 +27,7 @@ model.fit(x_data, y_data, epochs=100, batch_size=1, verbose=1)
 
 # 4. 평가 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=1)
-y_predict = model.predict(x_test)
+y_predict = model.predict_classes(x_test)
 
 print('loss : ', loss)
 print('acc : ', acc)
