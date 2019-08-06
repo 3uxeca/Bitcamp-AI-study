@@ -18,9 +18,13 @@ iris_data = pd.read_csv("./data/iris.csv", encoding='utf-8',
 y = iris_data.loc[:, "y"] # .loc 레이블로 나누기(레이블은 실질적인 데이터가 아님)
 x = iris_data.loc[:,["a", "b", "c", "d"]]
 
+print(y)
+print(y.shape)
+
 label_encoder = LabelEncoder()
 y_encoded = label_encoder.fit_transform(y) # 0 = setosa, 1 = versicolor, 2 = virginica
 print(pd.value_counts(y_encoded))
+print(y_encoded)
 
 # 범주형으로 전환
 y_encoded = np_utils.to_categorical(y_encoded, 3)
@@ -38,6 +42,12 @@ print(x_array.shape)
 
 # 학습 전용과 테스트 전용 분리하기
 x_train, x_test, y_train, y_test = train_test_split(x_array,y_encoded, test_size=0.2, train_size=0.8, shuffle=True)
+
+print(x_train.shape) # (120, 4)
+print(x_test.shape) # (30, 4)
+print(y_train.shape) # (120, 3)
+print(y_test.shape) # (30, 3)
+
 
 # 모델링
 model = Sequential()
@@ -62,3 +72,4 @@ y_predict = label_encoder.inverse_transform(y_predict) # int로 encoding했던 s
 print('loss : ', loss)
 print('acc : ', acc)
 print('y_predict(x_test) : \n', y_predict)
+'''

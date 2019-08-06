@@ -49,7 +49,7 @@ early_stopping_callback = EarlyStopping(monitor='val_loss', patience=10)
 
 #모델의 실행
 history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test),
-                     epochs=5, batch_size=200, verbose=1,
+                     epochs=5, batch_size=500, verbose=1,
                      callbacks=[early_stopping_callback])
 
 # 테스트 정확도 출력
@@ -87,4 +87,3 @@ plt.ylabel('loss, acc')
 plt.xlabel('epoch')
 plt.legend(['train loss', 'test loss', 'train acc', 'test acc'], loc='lower left') #위 history순서와 대응
 plt.show()
-'''
