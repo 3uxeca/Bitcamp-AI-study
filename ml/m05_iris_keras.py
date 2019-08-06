@@ -72,4 +72,3 @@ y_predict = label_encoder.inverse_transform(y_predict) # int로 encoding했던 s
 print('loss : ', loss)
 print('acc : ', acc)
 print('y_predict(x_test) : \n', y_predict)
-'''
