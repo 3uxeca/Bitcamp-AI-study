@@ -99,3 +99,5 @@ print('loss : ', loss)
 print('acc : ', acc)
 print('y_predict(x_test) : \n', y_predict)
     
+
+# acc = 0.9326

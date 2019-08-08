@@ -68,7 +68,7 @@ def create_hyperparameters(): # 45개의 옵션(batches*optimizers*dropout)을 �
     optimizers = ['rmsprop', 'adam', 'adadelta'] # 용도에 맞게 쓰자.
     dropout = np.linspace(0.1, 0.5, 5)
     epochs = [100, 200, 300, 400, 500]
-    return{"batch_size":batches, "optimizer":optimizers, "epochs":epochs} #, "keep_prob":dropout}
+    return{"kerasclassifier__batch_size":batches, "kerasclassifier__optimizer":optimizers, "kerasclassifier__epochs":epochs}
 
 from keras.wrappers.scikit_learn import KerasClassifier # 사이킷런과 호환하도록 함. (mnist에서 쓸듯)
 # from keras.wrappers.scikit_learn import KerasRegressor # 사이킷런의 교차검증을 keras에서 사용하기 위해 wrapping함
@@ -76,8 +76,13 @@ model = KerasClassifier(build_fn=build_network, verbose=1) # verbose=0 위에서
 
 hyperparameters = create_hyperparameters() # batch_size, optimizer, dropout의 값을 반환해주는 함수 wrapping해옴.
 
+from sklearn.pipeline import make_pipeline
+from sklearn.pipeline import Pipeline
+
+pipe = make_pipeline(MinMaxScaler(), model)
+
 from sklearn.model_selection import RandomizedSearchCV
-search = RandomizedSearchCV(estimator=model,
+search = RandomizedSearchCV(estimator=pipe,
                              param_distributions=hyperparameters,
                              n_iter=10, n_jobs=1, cv=3, verbose=1)
                              # 작업이 10회 수행, 3겹 교차검증 사용(3조각을 나눠서 검증). n_jobs는 알아서 찾아볼 것.

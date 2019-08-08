@@ -48,4 +48,4 @@ aaa = model.score(x_test, y_test)
 y_pred = model.predict(x_test)
 print(classification_report(y_test, y_pred)) # 예측 결과 report 출력
 print("정답률=", accuracy_score(y_test, y_pred)) 
-print(aaa) #(0.7102)
+print(aaa) #(0.9469)
