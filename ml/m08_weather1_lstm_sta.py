@@ -10,6 +10,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+batch_size = 2
+
 # 기온 데이터 읽어 들이기
 df = pd.read_csv('./data/tem10y.csv', encoding="utf-8")
 
@@ -64,7 +66,7 @@ print(test_y.shape) # (360,)
 
 # 모델의 설정
 model = Sequential()
-model.add(LSTM(10, batch_input_shape=(1,6,1), stateful=True))
+model.add(LSTM(10, batch_input_shape=(batch_size,6,1), stateful=True))
 
 model.add(Dense(10))
 model.add(Dense(10))
@@ -82,7 +84,7 @@ num_epochs = 5
 history_l = []
 for epoch_idx in range(num_epochs):
     print('epochs : ' + str(epoch_idx))
-    history = model.fit(train_x, train_y, epochs=100, batch_size=3,
+    history = model.fit(train_x, train_y, epochs=100, batch_size=batch_size,
                         verbose=2, shuffle=False, # 데이터를 섞지않고(초기화하지않고) 유지하겠다. epoch하나 끝나면 훈련상태를 그대로 다시 가져오겠다.
                         validation_data=(test_x, test_y),
                         callbacks=[early_stopping])
@@ -91,13 +93,13 @@ for epoch_idx in range(num_epochs):
 
 print(history)
 
-'''
+
 #4. 평가 예측
-mse, _ = model.evaluate(train_x, train_y, batch_size=3)
+mse, _ = model.evaluate(train_x, train_y, batch_size=batch_size)
 print("mse : ", mse)
 model.reset_states()
 
-y_predict = model.predict(test_x, batch_size=3)
+y_predict = model.predict(test_x, batch_size=batch_size)
 
 print(y_predict[0:5])
 
@@ -120,4 +122,3 @@ plt.ylabel('mse')
 plt.xlabel('epochs')
 plt.legend(['train', 'test'], loc='upper right') # for문 돌때마다 발생하는 값들을 리스트로 넣는방법 찾기.
 plt.show()
-'''

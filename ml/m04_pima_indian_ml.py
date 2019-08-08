@@ -27,10 +27,10 @@ X_train, X_test, Y_train, Y_test = train_test_split(
 )
 
 # 모델의 설정
-model = SVC(kernel='sigmoid', C=10, gamma=0.16)
+# model = SVC(kernel='sigmoid', C=10, gamma=0.16)
 # model = SVC(kernel='poly', C=5, gamma=0.16, degree=6, coef0=6)
 # model = LinearSVC(C=11, loss='hinge', max_iter=1000, multi_class='ovr') # 0.7759 / 0.7857
-# model = KNeighborsClassifier(n_neighbors=6) # 0.7272
+model = KNeighborsClassifier(n_neighbors=6) # 0.7272
 # model = KNeighborsRegressor(n_neighbors=1, algorithm='brute')
 
 # 모델 실행
