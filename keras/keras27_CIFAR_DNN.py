@@ -41,6 +41,9 @@ X_test /= 255
 X_train = X_train.reshape(50000, IMG_ROWS * IMG_COLS *IMG_CHANNELS)
 X_test = X_test.reshape(10000, IMG_ROWS * IMG_COLS *IMG_CHANNELS)
 
+print(X_train.shape) # (50000, 3072)
+
+'''
 # 신경망 정의
 model = Sequential()
 model.add(Dense(512, activation = 'relu', input_shape = (IMG_ROWS * IMG_COLS *IMG_CHANNELS, )))
@@ -67,6 +70,7 @@ print('Testing...')
 score = model.evaluate(X_test, Y_test, batch_size = BATCH_SIZE, verbose = VERBOSE)
 print("\nTest scroe : ", score[0])
 print('Test accuracy : ', score[1])
+'''
 
 '''
 # 히스토리에 있는 모든 데이터 나열

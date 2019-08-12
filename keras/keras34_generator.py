@@ -57,14 +57,14 @@ data_generator = ImageDataGenerator(
     height_shift_range=0.02, # 높이 0.02
     horizontal_flip=True # 수평값
 )
-# model.fit_generator(data_generator.flow(X_train, Y_train, batch_size=32), # 훈련을 시키되, 발전기도 같이 실행해라!
-#                     steps_per_epoch=len(X_train) // 32, # 몇 배로 증폭시킬건지 steps*batch_size 자기 숫자만큼의 새로운 이미지 데이터 생성
-#                     epochs=200,
-#                     validation_data=(X_test, Y_test),
-#                     verbose=1 #, callbacks=callbacks
-#                     ) 
+model.fit_generator(data_generator.flow(X_train, Y_train, batch_size=32), # 훈련을 시키되, 발전기도 같이 실행해라!
+                    steps_per_epoch=len(X_train) // 32, # 몇 배로 증폭시킬건지 steps*batch_size 자기 숫자만큼의 새로운 이미지 데이터 생성
+                    epochs=200,
+                    validation_data=(X_test, Y_test),
+                    verbose=1 #, callbacks=callbacks
+                    ) 
 
-
+'''
 # 모델 최적화 설정
 early_stopping_callback = EarlyStopping(monitor='val_loss', patience=30)
 
@@ -79,3 +79,4 @@ history = model.fit_generator(data_generator.flow(X_train, Y_train, batch_size=6
 # 테스트 정확도 출력
 print("\n Test Accuracy: %.4f" % (model.evaluate(X_test, Y_test)[1]))
 # 분류모델에서는 accuracy가 정확하다.(회귀모델에서는 mse나 R2를 사용했었음.)
+''''
