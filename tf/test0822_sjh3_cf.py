@@ -135,3 +135,11 @@ print(pred_data)
 pred_data = pred_data.reshape(-1, 5,8)
 predict = model.predict(pred_data)
 print(predict)
+
+
+predict = np.array(predict, dtype = "int32")
+print(predict.shape)
+predict = predict.reshape(5, 8)
+print(predict)
+np.savetxt("test0822_swh.csv", predict, fmt='%d', delimiter = ",")
+
