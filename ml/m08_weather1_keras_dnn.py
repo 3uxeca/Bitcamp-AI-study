@@ -43,6 +43,11 @@ test_x = np.array(test_x)
 train_y = np.array(train_y)
 test_y = np.array(test_y)
 
+print(train_x.shape)
+print(test_x.shape)
+print(train_y.shape)
+print(test_y.shape)
+
 # print(train_x[:10])
 # print(train_y[:10])
 # label_encoder = LabelEncoder()
@@ -65,7 +70,7 @@ test_y = np.array(test_y)
 # print(train_y.shape) # (3646,)
 # print(test_y.shape) # (360,)
 
-
+'''
 # 모델의 설정
 model = Sequential()
 model.add(Dense(64, input_dim=6, activation='relu'))
@@ -97,3 +102,4 @@ print("RMSE : ", RMSE(test_y, y_predict))
 from sklearn.metrics import r2_score
 r2_y_predict = r2_score(test_y, y_predict)
 print("R2 : ", r2_y_predict)
+'''

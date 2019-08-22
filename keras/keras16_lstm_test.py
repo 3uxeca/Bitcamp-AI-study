@@ -18,6 +18,7 @@ def split_5(seq, size): # array의 데이터를 5개씩 잘라서 [1,2,3,4,5]
 dataset = split_5(a, size)
 print("====================")
 print(dataset)
+print(dataset.shape)
 
 x_train = dataset[:,0:4] # 6행 4열 만들기
 y_train = dataset[:,4,] # 6열 만들기

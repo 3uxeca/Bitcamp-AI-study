@@ -37,6 +37,10 @@ def make_data(data):
 train_x, train_y = make_data(df[train_year])
 test_x, test_y = make_data(df[test_year])
 
+print(train_x)
+
+
+
 # 학습하기 
 model = RandomForestRegressor(n_estimators=300, # 생성할 decision tree의 개수
                                random_state=200,

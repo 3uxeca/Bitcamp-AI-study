@@ -7,7 +7,7 @@ from sklearn.datasets import load_boston
 from sklearn.datasets import load_breast_cancer
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
-pima-indians-diabetes
+#pima-indians-diabetes
 pima = np.loadtxt("./data/pima-indians-diabetes.csv", delimiter=",")
 np.save("pima.npy", pima)
 pima_load = np.load("pima.npy")
