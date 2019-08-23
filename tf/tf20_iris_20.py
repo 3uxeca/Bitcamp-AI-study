@@ -1,7 +1,7 @@
 import numpy as np 
 import tensorflow as tf
 import random
-tf.set_random_seed(777)
+tf.set_random_seed(666)
 
 # hyper parameters
 learning_rate = 0.001
@@ -44,7 +44,7 @@ L3 = tf.layers.dense(L2, 84, activation=tf.nn.relu)
 L4 = tf.layers.dense(L3, 64, activation=tf.nn.relu)
 L5 = tf.layers.dense(L4, 32, activation=tf.nn.relu)
 
-logits = tf.layers.dense(L5, 3, activation=tf.nn.softmax)
+logits = tf.nn.softmax(tf.layers.dense(L5, 3, activation=None))
 
 # define cost/loss & optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits,
