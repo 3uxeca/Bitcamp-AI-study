@@ -20,7 +20,7 @@ keep_prob = tf.placeholder(tf.float32)
 # tf.zeros_initializer() # 0.9655
 # tf.random_uniform_initializer()
 # tf.random_normal_initializer()
-# tf.contrib.layers.xavier_initializer() # 0.9738
+# tf.contrib.layers.xavier_initializer() # 0.9738 # 얘가 제일 좋음. get_variable 할때 무조건 초기화 옵션 써줘야함
 
 # placeholders for a tensor that will be always fed.
 X = tf.placeholder(tf.float32, shape=[None, 784]) # 784 = 28 * 28 * 1

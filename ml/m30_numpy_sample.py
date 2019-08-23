@@ -6,7 +6,7 @@ from keras.datasets import boston_housing
 from sklearn.datasets import load_boston
 from sklearn.datasets import load_breast_cancer
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
-
+'''
 #pima-indians-diabetes
 pima = np.loadtxt("./data/pima-indians-diabetes.csv", delimiter=",")
 np.save("pima.npy", pima)
@@ -63,7 +63,7 @@ cifar_x_load = np.load("cifar_x.npy")
 cifar_y_load = np.load("cifar_y.npy")
 print(cifar_x_load.shape) # (60000, 32, 32, 3)
 print(cifar_y_load.shape) # (60000, 1)
-
+'''
 # boston_housing
 (X_train, y_train), (X_test, y_test) = boston_housing.load_data()
 x = np.concatenate((X_train, X_test))
@@ -75,12 +75,27 @@ boston_load_y = np.load("boston_y.npy")
 print(boston_load_x.shape) # (506, 13)
 print(boston_load_y.shape) # (506,)
 
+'''
 # breast_cancer
 cancer = load_breast_cancer()
 cancer = np.c_[cancer.data,cancer.target]
 np.save("cancer.npy", cancer)
 cancer_load = np.load("cancer.npy")
 print(cancer_load.shape) # (569,31)
-
+'''
 ### 한글처리 찾기
 ### csv 저장하는 법 찾기
+# from sklearn.datasets import load_breast_cancer
+# cancer = load_breast_cancer()
+# x = np.array(cancer["data"])
+# y = np.array(cancer["target"])
+
+
+# np.save("cancer_x.npy", x)
+# cancer_x = np.load("cancer_x.npy")
+# print(cancer_x.shape)
+
+
+# np.save("cancer_y.npy", y)
+# cancer_y = np.load("cancer_y.npy")
+# print(cancer_y.shape)
