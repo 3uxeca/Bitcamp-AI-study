@@ -22,8 +22,8 @@ def split_5(seq, size): # array의 데이터를 5개씩 잘라서 [1,2,3,4,5] �
 
 dataset = split_5(a, size)
 print("==========================")
-print(dataset)
-print(dataset.shape)
+# print(dataset)
+# print(dataset.shape)
 
 x_train = dataset[:,0:4]
 y_train = dataset[:,4]
@@ -33,11 +33,12 @@ x_train = np.reshape(x_train, (len(x_train), size-1, 1))
 x_test = x_train + 100 # 101~200
 y_test = y_train + 100 # 105~200
 
-print(x_train.shape)
-print(y_train.shape)
-print(x_test.shape)
-print(y_test.shape)
-print(x_test[0])
+# print(x_train.shape) # (96, 4, 1)
+# print(y_train.shape) # (96, )
+# print(x_test.shape) # (96, 4, 1)
+# print(y_test.shape) # (96, )
+# print(x_test[0]) # 101 ~ 104
+print(y_train)
 
 
 #2. 모델구성
@@ -82,21 +83,21 @@ def RMSE(y_test, y_predict): # y_test, y_predict의 차이를 비교하기 위�
     return np.sqrt(mean_squared_error(y_test, y_predict)) # np.sqrt 제곱근씌우기
 print("RMSE : ", RMSE(y_test, y_predict))
 
-# R2 결정계수
-r2_y_predict = r2_score(y_test, y_predict)
-print("R2 : ", r2_y_predict)
+# # R2 결정계수
+# r2_y_predict = r2_score(y_test, y_predict)
+# print("R2 : ", r2_y_predict)
 
 # 히스토리에 있는 모든 데이터 나열
 # print(history_l.history.keys())  # 아래 히스토리 요약에 key값을 여기서 나오는애들로 넣어줘야됨!!
 
-# matplotlib을 이용한 데이터 시각화
-import matplotlib.pyplot as plt
+# # matplotlib을 이용한 데이터 시각화
+# import matplotlib.pyplot as plt
 
-# mse에 대한 히스토리 요약
-for i in range(len(history_l)):
-   plt.plot(history_l[i].history['mean_squared_error'])
-plt.title('model mse')
-plt.ylabel('mse')
-plt.xlabel('epochs')
-plt.legend(['train', 'test'], loc='upper right') # for문 돌때마다 발생하는 값들을 리스트로 넣는방법 찾기.
-plt.show()
+# # mse에 대한 히스토리 요약
+# for i in range(len(history_l)):
+#    plt.plot(history_l[i].history['mean_squared_error'])
+# plt.title('model mse')
+# plt.ylabel('mse')
+# plt.xlabel('epochs')
+# plt.legend(['train', 'test'], loc='upper right') # for문 돌때마다 발생하는 값들을 리스트로 넣는방법 찾기.
+# plt.show()

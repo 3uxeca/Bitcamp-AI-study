@@ -21,10 +21,11 @@ print("====================")
 
 x_train = dataset[:,0:4] # 93행 4열 만들기
 y_train = dataset[:,4:8,] # 93행 4열 만들기
-print(x_train.shape)        # (93, 4)
-print(y_train.shape)        # (93, 4) reshape필요
-print(x_train[0:2,])
-print(y_train[0:2,])
+# print(x_train.shape)        # (93, 4)
+# print(y_train.shape)        # (93, 4) reshape필요
+# print(x_train[0:2,])
+# print(y_train[0:2,])
+print(y_train)
 
 # x_train = np.reshape(x_train, (6,4,1))
 x_train = np.reshape(x_train, (len(a)-size+1,4,1))

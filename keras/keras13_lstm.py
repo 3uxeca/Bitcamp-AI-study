@@ -25,7 +25,7 @@ model.add(Dense(2))
 model.add(Dense(2))
 model.add(Dense(1))
 
-# model.summary()
+model.summary()
 
 #3. 실행
 model.compile(optimizer = 'adam', loss = 'mse')

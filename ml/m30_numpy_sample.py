@@ -65,24 +65,37 @@ print(cifar_x_load.shape) # (60000, 32, 32, 3)
 print(cifar_y_load.shape) # (60000, 1)
 '''
 # boston_housing
-(X_train, y_train), (X_test, y_test) = boston_housing.load_data()
-x = np.concatenate((X_train, X_test))
-y = np.concatenate((y_train, y_test))
-np.save("boston_x.npy", x)
-np.save("boston_y.npy", y)
-boston_load_x = np.load("boston_x.npy")
-boston_load_y = np.load("boston_y.npy")
-print(boston_load_x.shape) # (506, 13)
-print(boston_load_y.shape) # (506,)
+# (X_train, y_train), (X_test, y_test) = boston_housing.load_data()
+# x = np.concatenate((X_train, X_test))
+# y = np.concatenate((y_train, y_test))
+# np.save("boston_x.npy", x)
+# np.save("boston_y.npy", y)
+# boston_load_x = np.load("boston_x.npy")
+# boston_load_y = np.load("boston_y.npy")
+# print(boston_load_x.shape) # (506, 13)
+# print(boston_load_y.shape) # (506,)
+# print(boston_load_x[:10])
 
-'''
+# from keras.datasets import boston_housing
+# (x_train, y_train),(x_test,y_test) = boston_housing.load_data()
+# boston_housing_x = np.vstack((np.array(x_train), np.array(x_test)))
+# boston_housing_y = np.hstack((np.array(y_train), np.array(y_test)))
+# np.save("boston_housing_x.npy",boston_housing_x)
+# np.save("boston_housing_y.npy",boston_housing_y)
+# x = np.load("boston_housing_x.npy")
+# y = np.load("boston_housing_y.npy")
+# # mnist_train =
+# print("boston_housingx",x.shape)
+# print("boston_housingy",y.shape)
+
+
 # breast_cancer
 cancer = load_breast_cancer()
 cancer = np.c_[cancer.data,cancer.target]
 np.save("cancer.npy", cancer)
 cancer_load = np.load("cancer.npy")
 print(cancer_load.shape) # (569,31)
-'''
+
 ### 한글처리 찾기
 ### csv 저장하는 법 찾기
 # from sklearn.datasets import load_breast_cancer
