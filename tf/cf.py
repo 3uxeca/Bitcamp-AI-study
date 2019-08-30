@@ -1,75 +1,102 @@
-import tensorflow as tf
-import matplotlib.pyplot as plt
-import random
+import keras
+from keras.models import *
+from keras.layers import *
 import numpy as np
-from sklearn.model_selection import train_test_split
-tf.set_random_seed(77)
 
-cancer_data = np.load("./data/cancer.npy")
+x_data = np.arange(1,101)
+x_test = np.arange(101,110)
+y_test = np.array([107,108,109,110])
+###예측에 쓰이는 기간
+size = 6
+pre_day = 1
 
-print("cancer_data:",cancer_data.shape) # (569, 31)
+##TRAIN 데이터와 LABEL데이터를 나누는 곳
+def split(seq, size):
+    aaa=[]
+    for i in range(len(seq)-size):
+        subset = seq[i:(i+size)]
+        aaa.append(subset)
 
-x_train = cancer_data[:,:-1]
+    
+    return np.array(aaa)
+def split_test(seq, size):
+    aaa=[]
+    for i in range(len(seq)-size+1):
+        subset = seq[i:(i+size)]
+        aaa.append(subset)
 
-y_train = cancer_data[:,[-1]]
+    
+    return np.array(aaa)
+def split_label(seq, size,pre_day):
+    lab = []
+    lab = np.array(lab)
+    if pre_day-1 != 0:
+        lab = seq[size:-pre_day+1]
+    else:
+        lab = seq[size:]
 
+    print(lab.shape)
+    
+    for i in range(1,pre_day):
+        
+        # print("%d"%i,seq[size+i:-pre_day+(i+1)].shape)
+        if (pre_day-1)!= i:
+            lab = np.c_[lab[:], seq[size+i:-pre_day+(i+1)]]
+        else:
+            lab = np.c_[lab[:], seq[size+i:]]
+        print(lab.shape)
+    return lab
 
-X = tf.placeholder(tf.float32,[None, 30])
-Y = tf.placeholder(tf.float32,[None, 1])
+x_train = split(x_data,size)
+y_train = split_label(x_data,size,pre_day)
+print(x_train.shape)
+print(y_train)
+x_test = split_test(x_test,size)
+print(x_train)
+print(x_test)
+x_train = x_train.reshape((-1,6,1))
+x_test = x_test.reshape((-1,6,1))
+model = Sequential()
 
-# print(x_train.shape, y_train.shape) # (569, 30), (569, 1)
-x_train, x_test, y_train, y_test = train_test_split(x_train,y_train,test_size=0.2)
-# print(x_train.shape, y_train.shape) # (455, 30), (455, 1)
-
-# w1 = tf.get_variable("w1",shape=[?,?],initializer=tf.random_uniform_initializer())
-# b1 = tf.Variable(tf.random_normal([512]))
-
-
-# tf.constant_initializer()
-# tf.zeros_initializer()
-# tf.random_uniform_initializer()
-# tf.random_normal_initializer()
-# tf.contrib.layers.xavier_initializer()
-
-l1 = tf.layers.dense(X, 100, activation=tf.nn.leaky_relu)
-l2 = tf.layers.dense(l1, 20, activation=tf.nn.leaky_relu)
-l3 = tf.layers.dense(l2, 10, activation=tf.nn.leaky_relu)
-logits = tf.layers.dense(l3, 1,activation=tf.nn.leaky_relu)
-
-
-
-
-
-
-hypothesis = tf.nn.sigmoid(logits)
-cost = -tf.reduce_mean(Y * tf.log(hypothesis) + (1 - Y) * tf.log(1 - hypothesis))
-
-
-
-train = tf.train.AdamOptimizer(learning_rate=0.00001).minimize(cost)
-# train = tf.train.GradientDescentOptimizer(learning_rate=0.00001).minimize(cost)
-
-predicted = tf.cast(hypothesis > 0.5, dtype=tf.float32)
-accuracy = tf.reduce_mean(tf.cast(tf.equal(predicted, Y), dtype=tf.float32))    # 일반적인 선형 회귀에선 안된다
-
-
+model.add(LSTM(36,input_shape=(6,1)))
 
 
-with tf.Session() as sess:
-    # Initialize TensorFlow variables
+model.add(Dense(200))
+model.add(Dense(100))
+model.add(Dense(50))
+model.add(Dense(6))
+model.add(Dense(1))
+
+
+keras.optimizers.Adam(lr=0.5)
+rmse= 50
+model.compile(loss="mse",optimizer="adam",metrics=["mae"])
+while rmse > 0.1:
     
 
-    sess.run(tf.global_variables_initializer())
+
+    early_stoping_callback = keras.callbacks.EarlyStopping(monitor="loss",patience=10)
+
+    history = model.fit(x_train, y_train,epochs = 100, batch_size=10, verbose=2,callbacks=[early_stoping_callback])
+
+    print("\n test acc: %.4f"%(model.evaluate(x_train, y_train)[1]))
+
+
+
+
+
+
+    y_ = model.predict(x_test)
+
+
+    from sklearn.metrics import mean_squared_error, r2_score
+    from sklearn.metrics import mean_absolute_error
+    def RMSE(y_test, y_):
+        return np.sqrt(mean_squared_error(y_test,y_))
+    def RMAE(y_test, y_):
+        return np.sqrt(mean_absolute_error(y_test,y_))
+    rmse = RMSE(y_test,y_)
+    print("RMSE:",RMSE(y_test,y_))
     
-    for step in range(3000):
-        _, cost_val, acc_val = sess.run([train, cost, accuracy], feed_dict={X: x_train, Y: y_train})
-        if step % 100 == 0:
-            print("Step: {:5}\tCost: {:f}\tAcc: {:.2%}".format(step, cost_val, acc_val))
-            
-    # Let's see if we can predict
-    a, pred = sess.run([accuracy, predicted], feed_dict={X: x_test,Y: y_test})
-    # y_data: (N, 1) = flatten => (N, ) matches pred.shape
-    for p, y in zip(pred, y_train.flatten()):
-        print("[{}] Prediction: {} True Y: {}".format(p == int(y), p, int(y)))
-    print(a)
-    writer = tf.summary.FileWriter('./board/sample_1', sess.graph)
+y_ = model.predict(x_test)
+print(y_)
