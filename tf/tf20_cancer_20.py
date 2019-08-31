@@ -3,6 +3,20 @@ import tensorflow as tf
 import random
 tf.set_random_seed(777)
 
+def next_batch(num, data, labels):
+    
+#   `num` 개수 만큼의 랜덤한 샘플들과 레이블들을 리턴합니다.
+
+    idx = np.arange(0 , len(data))
+    np.random.shuffle(idx)
+    idx = idx[:num]
+    data_shuffle = [data[ i] for i in idx]
+    labels_shuffle = [labels[ i] for i in idx]
+    
+    return np.asarray(data_shuffle), np.asarray(labels_shuffle)
+
+
+
 # hyper parameters
 learning_rate = 0.001
 training_epochs = 100
@@ -55,7 +69,7 @@ with tf.Session() as sess:
     # Initialize TensorFlow variables
     sess.run(tf.global_variables_initializer())
 
-    for step in range(501):
+    for step in range(1001):
         _, cost_val, acc_val = sess.run([optimizer, cost, accuracy], 
                                         feed_dict={X: x_train, Y: y_train})
         if step % 100 == 0:
@@ -72,23 +86,18 @@ with tf.Session() as sess:
 
 
 
+# # Launch graph
+# with tf.Session() as sess:
+#     # Initialize TensorFlow variables
+#     sess.run(tf.global_variables_initializer())
 
-
-
-'''
-# Launch graph
-with tf.Session() as sess:
-    # Initialize TensorFlow variables
-    sess.run(tf.global_variables_initializer())
-
-    for step in range(1001):
-        cost_val, _ = sess.run([cost, optimizer], feed_dict={X: x_train, Y: y_train})
-        if step % 100 == 0:
-            print(step, cost_val)
+#     for step in range(1001):
+#         cost_val, _ = sess.run([cost, optimizer], feed_dict={X: x_train, Y: y_train})
+#         if step % 100 == 0:
+#             print(step, cost_val)
     
-    # Accuracy report
-    h, c, a = sess.run([logits, predicted, accuracy],
-                        feed_dict={X: x_test, Y: y_test})
-    print("\nHypothesis: ", h, "\nCorrect (Y): ", c, "\nAccuracy: ", a)
-    print('Accuracy:', sess.run(accuracy, feed_dict={X: x_test, Y: y_test})) 
-'''
+#     # Accuracy report
+#     h, c, a = sess.run([logits, predicted, accuracy],
+#                         feed_dict={X: x_test, Y: y_test})
+#     print("\nHypothesis: ", h, "\nCorrect (Y): ", c, "\nAccuracy: ", a)
+#     print('Accuracy:', sess.run(accuracy, feed_dict={X: x_test, Y: y_test})) 
