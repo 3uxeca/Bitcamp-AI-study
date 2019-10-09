@@ -57,3 +57,9 @@ history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test),
 # 테스트 정확도 출력
 print("\n Test Accuracy: %.4f" % (model.evaluate(X_test, Y_test)[1]))
 # 분류모델에서는 accuracy가 정확하다.(회귀모델에서는 mse나 R2를 사용했었음.)
+
+y = model.predict(X_train)
+print(y[:10])
+
+y2 = model.predict_classes(X_train)
+print(y[:10])
