@@ -1,2 +1,4 @@
 
 *.npy
+ml/m30_numpy_sample.py
+tf/tf20_cancer_20.py
